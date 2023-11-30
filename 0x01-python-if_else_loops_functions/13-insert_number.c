@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "lists.h"
 
+listint_t *create_node(int data);
+
 /**
  * insert_node - prints all elements of a listint_t list
  * @head: pointer to head of list
