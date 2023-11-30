@@ -24,26 +24,35 @@ size_t print_listint(const listint_t *h)
 }
 
 /**
- * add_nodeint - adds a new node at the beginning of a listint_t list
+ * add_nodeint_end - adds a new node at the beginning of a listint_t list
  * @head: pointer to a pointer of the start of the list
  * @n: integer to be included in node
  * Return: address of the new element or NULLif it fails
  */
-listint_t *add_nodeint(listint_t **head, const int n)
+listint_t *add_nodeint_end(listint_t **head, const int n)
 {
 	listint_t *new;
+	listint_t *current;
+
+	current = *head;
 
 	new = malloc(sizeof(listint_t));
 	if (new == NULL)
 		return (NULL);
 
 	new->n = n;
-	new->next = *head;
-	*head = new;
+	new->next = NULL;
 
+	if (*head == NULL)
+		*head = new;
+	else
+	{
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
+	}
 	return (new);
 }
-
 /**
  * free_listint - frees a listint_t list
  * @head: pointer to list to be freed
@@ -59,4 +68,27 @@ void free_listint(listint_t *head)
 		head = head->next;
 		free(current);
 	}
+}
+
+/**
+ * create_node - create a node
+ * @data: node data
+ *
+ * Return: node pointer
+ */
+
+
+listint_t *create_node(int data)
+{
+	listint_t *newNode = (listint_t *)malloc(sizeof(listint_t));
+
+	if (newNode == NULL)
+	{
+		perror("Error creating a new node");
+		exit(EXIT_FAILURE);
+	}
+	newNode->n = data;
+	newNode->next = NULL;
+
+	return (newNode);
 }
