@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-import  add_0 as plus
+
 if __name__ == "__main__":
+    import add as plus
     a = 1
     b = 2
     c = plus.add(a, b)
