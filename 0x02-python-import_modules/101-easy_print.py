@@ -1,2 +1,3 @@
 #!/usr/bin/python3
-import trythis
+__import__("os").write(1, b"#pythoniscool\n")
+
