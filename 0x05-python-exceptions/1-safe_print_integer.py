@@ -6,3 +6,5 @@ def safe_print_integer(value):
         return False
     else:
         return True
+    finally:
+        print("")
