@@ -87,8 +87,9 @@ class Rectangle(Base):
         return msg.format(self.id,
                           self.__x, self.__y,
                           self.__width, self.__height)
-    """
+
     def update(self, *args, **kwargs):
+        """Update Rectangle"""
         if args:
             attrs = ["id", "width", "height", "x", "y"]
             if len(args) > len(attrs):
@@ -99,7 +100,7 @@ class Rectangle(Base):
         else:
             for key, value in kwargs.items():
                 setattr(self, key, value)
-
+    """
     def to_dictionary(self):
         attrs = ["id", "width", "height", "x", "y"]
         return {key: getattr(self, key) for key in attrs}
