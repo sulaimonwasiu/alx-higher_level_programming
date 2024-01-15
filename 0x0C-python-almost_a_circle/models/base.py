@@ -65,3 +65,41 @@ class Base:
                 return r
         except FileNotFoundError:
             return []
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """JSON string representation of list_objs to a file"""
+        import csv
+        if list_objs is None:
+            list_objs = []
+        filename = cls.__name__ + ".csv"
+        with open(filename, "w") as f:
+            if cls.__name__ == "Rectangle":
+                fieldnames = ["id", "width", "height", "x", "y"]
+            elif cls.__name__ == "Square":
+                fieldnames = ["id", "size", "x", "y"]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for o in list_objs:
+                writer.writerow(o.to_dictionary())
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """JSON string representation of load_from_file"""
+        import csv
+        filename = cls.__name__ + ".csv"
+        try:
+            with open(filename, "r") as f:
+                if cls.__name__ == "Rectangle":
+                    fieldnames = ["id", "width", "height", "x", "y"]
+                elif cls.__name__ == "Square":
+                    fieldnames = ["id", "size", "x", "y"]
+                reader = csv.DictReader(f, fieldnames=fieldnames)
+                instances = []
+                for row in reader:
+                    dict_ = {key: int(value) for key, value in row.items()}
+                    instance = cls.create(**dict_)
+                    instances.append(instance)
+                return instances
+        except FileNotFoundError:
+            return []
