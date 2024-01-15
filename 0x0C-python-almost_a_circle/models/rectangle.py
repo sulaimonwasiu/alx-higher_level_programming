@@ -77,17 +77,17 @@ class Rectangle(Base):
 
     def display(self):
         """Prints Rectangle"""
-        for i in range(self.__y):
+        for _ in range(self.__y):
             print()
-        for i in range(self.__height):
+        for _ in range(self.__height):
             print(" " * self.__x + "#" * self.__width)
-    """
+
     def __str__(self):
         msg = "[Rectangle] ({}) {}/{} - {}/{}"
         return msg.format(self.id,
                           self.__x, self.__y,
                           self.__width, self.__height)
-
+    """
     def update(self, *args, **kwargs):
         if args:
             attrs = ["id", "width", "height", "x", "y"]
