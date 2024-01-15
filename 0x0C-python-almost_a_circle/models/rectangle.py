@@ -100,8 +100,7 @@ class Rectangle(Base):
         else:
             for key, value in kwargs.items():
                 setattr(self, key, value)
-    """
+
     def to_dictionary(self):
         attrs = ["id", "width", "height", "x", "y"]
         return {key: getattr(self, key) for key in attrs}
-    """
