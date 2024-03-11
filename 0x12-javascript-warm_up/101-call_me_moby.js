@@ -1,9 +1,9 @@
 #!/usr/bin/node
 
-function executeXTimes (x, theFunction) {
-  for (let i = 0; i < x; i++) {
-    theFunction();
+module.exports = {
+  callMeMoby: function (n, func) {
+    for (let i = 0; i < n; i++) {
+      func();
+    }
   }
-}
-
-module.exports = executeXTimes;
+};
