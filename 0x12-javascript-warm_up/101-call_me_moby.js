@@ -1,8 +1,8 @@
 #!/usr/bin/node
 
-function executeXTimes (x, func) {
+function executeXTimes (x, theFunction) {
   for (let i = 0; i < x; i++) {
-    func();
+    theFunction();
   }
 }
 
