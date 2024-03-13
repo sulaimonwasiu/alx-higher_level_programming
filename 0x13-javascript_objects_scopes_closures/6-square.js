@@ -6,11 +6,11 @@ class Square extends Rectangle {
     super(size, size);
   }
 
-  charPrint(c) {
+  charPrint (c) {
     if (c === undefined) {
       c = 'X';
     }
-    
+
     let str = c.repeat(this.size) + '\n';
     str = str.repeat(this.size);
     console.log(str);
