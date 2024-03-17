@@ -18,9 +18,9 @@ def list_states(username, password, database, state_filter):
     cur = db.cursor()
     cmd = """SELECT *
              FROM states
-             WHERE name=%s
+             WHERE name LIKE %s
              ORDER BY id ASC;"""
-    cur.execute(cmd, (state_filter,))
+    cur.execute(cmd, ('{}%'.format(state_filter),))
     all_states = cur.fetchall()
 
     for state in all_states:
