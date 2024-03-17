@@ -15,7 +15,11 @@ def list_states(username, password, database):
                          db=database)
 
     cur = db.cursor()
-    cur.execute("SELECT DISTINCT id, name FROM states WHERE name like 'N%' ORDER BY id ASC")
+    cmd = """SELECT id, name
+             FROM states
+             WHERE name LIKE 'N%'
+             ORDER BY id ASC;"""
+    cur.execute(cmd)
     all_states = cur.fetchall()
 
     for state in all_states:
