@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-# List all states where 'name' matches the argument
-# But this time, one safe from MySQL injection.
-# Username, password, database name, and state name given as user args
+""" List all states where 'name' matches the argument
+But this time, one safe from MySQL injection.
+Username, password, database name, and state name given as user args
+"""
 import MySQLdb
 import sys
 
