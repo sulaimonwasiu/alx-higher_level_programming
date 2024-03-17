@@ -17,13 +17,14 @@ def list_states(username, password, database, state_filter):
     cur = db.cursor()
     cmd = """SELECT *
              FROM states
-             WHERE name LIKE '{}'
+             WHERE name='{}'
              ORDER BY id ASC;""".format(state_filter)
     cur.execute(cmd)
     all_states = cur.fetchall()
 
     for state in all_states:
-        print(state)
+        if (state[1] == state_filter):
+            print(state)
 
     cur.close()
     db.close()
