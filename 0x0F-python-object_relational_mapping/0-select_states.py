@@ -3,31 +3,27 @@ import MySQLdb
 import sys
 
 def list_states(username, password, database):
-    # Connect to the MySQL server
-    conn = MySQLdb.connect(host='localhost', port=3306, user=username, passwd=password, db=database)
+    db = MySQLdb.connect(host = 'localhost',
+                         port = 3306,
+                         user = username,
+                         passwd = password,
+                         db = database
+                         )
+    cur = db.cursor()
+    cur.execute("SELECT DISTINCT id, name FROM states ORDER BY id ASC")
+    all_states = cur.fetchall()
 
-    # Create a cursor object to execute queries
-    cursor = conn.cursor()
+    for state in all_states:
+        print(state)
 
-    # Execute the query to fetch all states
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    cur.close()
+    db.close()
 
-    # Fetch all the rows returned by the query
-    rows = cursor.fetchall()
-
-    # Display the states
-    for row in rows:
-        print(row)
-
-    # Close the cursor and connection
-    cursor.close()
-    conn.close()
 
 if __name__ == "__main__":
-    # Get the MySQL username, password, and database name from command-line arguments
+    # Get arguments
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
 
-    # Call the function to list states
     list_states(username, password, database)
