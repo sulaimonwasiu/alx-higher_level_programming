@@ -2,13 +2,14 @@
 import MySQLdb
 import sys
 
+
 def list_states(username, password, database):
-    db = MySQLdb.connect(host = 'localhost',
-                         port = 3306,
-                         user = username,
-                         passwd = password,
-                         db = database
-                         )
+    db = MySQLdb.connect(host='localhost',
+                         port=3306,
+                         user=username,
+                         passwd=password,
+                         db=database)
+
     cur = db.cursor()
     cur.execute("SELECT DISTINCT id, name FROM states ORDER BY id ASC")
     all_states = cur.fetchall()
