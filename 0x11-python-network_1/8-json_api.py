@@ -16,14 +16,15 @@ if __name__ == "__main__":
     data = {'q': letter}  # Set q to empty string if no argument provided
     response = requests.post(url, data)
 
-    if response.status_code == 200:
-        try:
-            data = response.json()
-            if not data:
-                print("No result")
-            else:
-                print(f"[{data['id']}] {data['name']}")
-        except TypeError:
-            print("Not a valid JSON")
+    res_type = response.headers['content-type']
+
+    if type_res == 'application/json':
+        result = response.json()
+        _id = result.get('id')
+        name = result.get('name')
+        if (result != {} and _id and name):
+            print("[{}] {}".format(_id, name))
+        else:
+            print('No result')
     else:
-        print(f"Error: Status code {response.status_code}")
+        print('Not a valid JSON')
