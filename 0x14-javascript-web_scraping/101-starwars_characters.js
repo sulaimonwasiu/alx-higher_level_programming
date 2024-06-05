@@ -1,45 +1,37 @@
 #!/usr/bin/node
-// Assuming you're running this script with Node.js
 
-// Get the movie ID from the command-line arguments
-const movieId = process.argv[2];
-
-// Import the 'request' module
 const request = require('request');
+const id = process.argv[2];
+const url = `https://swapi-api.alx-tools.com/api/films/${id}`;
 
-// Set the API endpoint URL
-const apiUrl = `https://swapi.dev/api/films/${movieId}/`;
+// Function to make a request and return a Promise
+function makeRequest(url) {
+  return new Promise((resolve, reject) => {
+    request.get(url, (error, response, body) => {
+      if (error) {
+        reject(`Error fetching data from ${url}: ${error}`);
+      } else {
+        const data = JSON.parse(body);
+        resolve({ name: data.name });
+      }
+    });
+  });
+}
 
-// Make the GET request to the API
-request(apiUrl, (error, response, body) => {
+// Use Promise.all() to wait for all requests to complete
+request.get(url, (error, response, body) => {
   if (error) {
     console.error('Error:', error);
-    return;
-  }
-
-  if (response.statusCode === 200) {
-    // Parse the response body as JSON
-    const movie = JSON.parse(body);
-    // Get the list of characters
-    const characters = movie.characters;
-
-    // Print each character name
-    characters.forEach((characterUrl) => {
-      request(characterUrl, (error, response, body) => {
-        if (error) {
-          console.error('Error:', error);
-          return;
-        }
-
-        if (response.statusCode === 200) {
-          const character = JSON.parse(body);
-          console.log(character.name);
-        } else {
-          console.error(`Error fetching character: ${response.statusCode}`);
-        }
-      });
-    });
   } else {
-    console.error(`Error fetching movie: ${response.statusCode}`);
+    const content = JSON.parse(body);
+    const characterUrls = content.characters;
+    Promise.all(characterUrls.map(makeRequest))
+      .then(results => {
+        // Results is an array of the objects returned from the makeRequest function
+        console.log(results);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 });
